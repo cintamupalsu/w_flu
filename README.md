@@ -18,7 +18,7 @@ below under "EXCEPTIONS".
 THIS SOFTWARE IS PROVIDED "AS IS" WITH NO WARRANTY OF ANY KIND.
 
 In the unlikely event that you happen to make a zillion bucks off of
-this, then good for you; consider buying a homeless person a meal.
+this, then good for you; consider supporting WuhanFlu patient for treatment.
 
 
 EXCEPTIONS
