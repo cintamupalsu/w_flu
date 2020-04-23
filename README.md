@@ -1,24 +1,47 @@
-# README
+# WuhanFlu
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is the sample application for recording health database
 
-Things you may want to cover:
+## License
 
-* Ruby version
+This software is licensed under the "Anyone But Richard M Stallman"
+(ABRMS) license, described below. No other licenses may apply.
 
-* System dependencies
 
-* Configuration
+--------------------------------------------
+The "Anyone But Richard M Stallman" license
+--------------------------------------------
 
-* Database creation
+Do anything you want with this program, with the exceptions listed
+below under "EXCEPTIONS".
 
-* Database initialization
+THIS SOFTWARE IS PROVIDED "AS IS" WITH NO WARRANTY OF ANY KIND.
 
-* How to run the test suite
+In the unlikely event that you happen to make a zillion bucks off of
+this, then good for you; consider buying a homeless person a meal.
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
+EXCEPTIONS
+----------
 
-* ...
+Richard M Stallman (the guy behind GNU, etc.) may not make use of or
+redistribute this program or any of its derivatives.
+
+
+## Getting started
+
+To get started with the app, clone the repo and then install the needed gems:
+```
+$ bundle install --without production ```
+Next, migrate the database:
+```
+$ rails db:migrate
+```
+Finally, run the test suite to verify that everything is working correctly:
+```
+$ rails test
+```
+If the test suite passes, you'll be ready to run the app in a local server:
+```
+$ rails server
+```
