@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   root 'freeaccess_pages#home'
-  get 'freeaccess_pages/home'
-  get 'freeaccess_pages/help'
-  get 'freeaccess_pages/about'
+  get '/help', to: 'freeaccess_pages#help'
+  get '/about', to: 'freeaccess_pages#about'
 end

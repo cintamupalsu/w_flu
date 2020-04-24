@@ -1,1 +1,55 @@
 @import '~bootstrap/scss/bootstrap';
+$black: #000000;
+
+header {
+  font-family: "HGP行書体";
+  #medical_title{
+    font-size: 21px;
+    letter-spacing: -2px;
+  }
+  #phi_logo{
+    float: left;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+  #nav-item{
+    padding-right: 10px;
+  }
+}
+
+body{
+  font-family: "メイリオ";
+  .card-header{
+    h2{
+      padding-top: 10px;
+    }
+  }
+}
+.center{
+  text-align: center;
+}
+
+footer{
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  border-top: 1px solid $black;
+  small{
+    float: left;
+    margin-left: 10px;
+    margin-top: 5px;
+    #sbs_logo{
+      margin-top: -5px;
+      margin-left: 5px;
+    }
+  }
+  ul{
+     float: right;
+     list-style: none;
+     margin-right: 20px;
+     li{
+        float: left;
+        margin-left: 15px;
+     }
+  }
+}
