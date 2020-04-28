@@ -4,5 +4,21 @@
     This is the home page for the
     <a href="https://radiant-harbor-89014.herokuapp.com">Medical API</a> Application.
   </h2>
-  <%= link_to "申し込む", signup_path, class: "btn btn-lg btn-primary" %>
+  <div class="row center">
+    <div class="col-12">
+      <%= form_with(url: login_path, scope: :session, local: true) do |f| %>
+
+        <%= f.label :email %>
+        <%= f.email_field :email, class: 'form-control' %>
+
+        <%= f.label :password %>
+        <%= f.password_field :password, class: 'form-control' %></br>
+
+        <%= f.submit "ログイン", class: "btn btn-lg btn-primary" %>
+      <% end %>
+      </br>
+      <p>New user?</p>
+    </div>
+  </div>
+  <%= link_to "申し込む", signup_path, class: "btn btn-success" %>
 </div>
