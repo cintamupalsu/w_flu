@@ -13,10 +13,10 @@
 
         <%= f.label :password %>
         <%= f.password_field :password, class: 'form-control' %>
-        
+
         <%= f.label :remember_me, class: 'checkbox inline' do %>
           <%= f.check_box :remember_me %>
-          <span>この後この端末でログインが不要になります。</span>
+          <span>ログインしたままにする</span>
         <% end %>
       </br>
 
@@ -26,5 +26,5 @@
       <p>New user?</p>
     </div>
   </div>
-  <%= link_to "申し込む", signup_path, class: "btn btn-success" %>
+  <%= link_to "新規登録", signup_path, class: "btn btn-success" %>
 </div>
