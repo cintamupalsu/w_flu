@@ -8,7 +8,14 @@
       <%= f.email_field :email, class: 'form-control' %>
 
       <%= f.label :password %>
-      <%= f.password_field :password, class: 'form-control' %></br>
+      <%= f.password_field :password, class: 'form-control' %>
+
+      <%= f.label :remember_me, class: 'checkbox inline' do %>
+        <%= f.check_box :remember_me %>
+        <span>この後この端末でログインが不要になります。</span>
+      <% end %>
+
+    </br>
 
       <%= f.submit "ログイン", class: "btn btn-primary" %>
     <% end %></br>
