@@ -1,0 +1,12 @@
+<% provide(:title, "編集") %>
+<h1>プロファイルを編集</h1>
+
+<div class="row">
+  <div class="col-12">
+    <%= render 'form' %>
+    <div class="gravatar_edit">
+      <%= gravatar_for @user %>
+      <a href="https://gravatar.com/emails" target="_blank">change</a>
+    </div>
+  </div>
+</div>
