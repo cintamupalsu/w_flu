@@ -18,6 +18,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      
       log_in @user
       flash[:success] = "Welcome to the Medical API!"
       redirect_to @user
@@ -72,5 +73,5 @@ class UsersController < ApplicationController
   def admin_user
     redirect_to(root_url) unless current_user.admin?
   end
-  
+
 end
