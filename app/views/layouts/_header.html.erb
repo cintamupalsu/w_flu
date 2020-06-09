@@ -22,14 +22,24 @@
           </li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+              マップ<b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <a class="nav-link" href="<%= add_positions_file_path %>">ファイル追加</a>
+            </ul>
+          </li>
+
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
               アカウント<b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <li><%= link_to "プロファイル", current_user %></li>
-              <li><%= link_to "設定", edit_user_path(current_user) %></li>
+
+              <a class="nav-link" href="<%=current_user%>">プロファイル</a>
+              <a class="nav-link" href="<%=edit_user_path(current_user)%>">設定</a>
               <li class="dropdown-divider"></li>
               <li>
-                <%= link_to "ログアウト", logout_path, method: :delete %>
+                <a class="nav-link" href="<%=logout_path%>">ログアウト</a>
               </li>
             </ul>
           </li>

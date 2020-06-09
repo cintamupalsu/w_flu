@@ -1,0 +1,6 @@
+<%= form_for(:uploadpositionfile, url: upload_position_file_path) do |f| %>
+  <%= f.label :filename, "緯度経度ファイル(txt)"%>
+  <%= f.file_field :filename, required: true, class: 'form-control', accept: 'text/plain' %>
+  </br>
+  <%= f.submit "アプロード", class: "btn btn-outline-primary" %>
+<% end %>
