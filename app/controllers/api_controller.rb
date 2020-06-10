@@ -35,15 +35,14 @@ class ApiController < ApplicationController
     user = User.find_by(remember_digest: apikey)
     if user != nil && user.email == user_email
       from_date = Time.zone.now.to_date - 3.days
-      # $2a$12$gMrLRMhdn5o0PHp3zhxRMu20PmFmgH0goDCwRQW5l7k0tS0.wOaqe
-      #heatPoints = Position.where("DATE(recdate)>='#{from_date.to_date}'")
-      heatPoints = Position.select("id,lat,lon,recdate,power").where("DATE(recdate)>='#{from_date.to_date}'")
+
+      heatPoints = Position.select("id, lat, lon, recdate, power").where("DATE(recdate)>='#{from_date.to_date}'")
       responseInfo = {status: 200, developerMessage: "OK"}
       metadata = {responseInfo: responseInfo}
       jsonString = {metadata: metadata, results: heatPoints}
       render json: jsonString.to_json
     else
-      jsonMsg(501,"Authentication error")
+      jsonMsg(501, "Authentication error")
     end
   end
 
@@ -59,5 +58,6 @@ class ApiController < ApplicationController
     jsonString = {metadata: metadata, results: nil}
     render json: jsonString.to_json
   end
+
 
 end

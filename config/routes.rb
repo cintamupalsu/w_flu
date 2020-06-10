@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   get '/add_positions_file', to: 'positions#add_file'
   post '/upload_position_file', to: 'positions#upload_file'
+  get '/delete_all_positions', to: 'positions#delete_all'
 
   resources :users
 end

@@ -4,3 +4,5 @@
   </br>
   <%= f.submit "アプロード", class: "btn btn-outline-primary" %>
 <% end %>
+Records Count: <%= @p_count %> </br>
+<%= link_to "delete all positions", delete_all_positions_path, class: "btn btn-outline-warning", role: "button" %>

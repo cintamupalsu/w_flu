@@ -5,6 +5,7 @@ class PositionsController < ApplicationController
   end
 
   def add_file
+    @p_count = Position.count
     render 'add_file'
   end
 
@@ -20,14 +21,19 @@ class PositionsController < ApplicationController
                                    recdate: Date.parse(data[2]),
                                    power: data[3].to_i)
       end
-      flash[:success] = data
+      flash[:success] = "アプロードしました"
     else
       flash[:warning] = "ブ〜"
     end
-
+    @p_count = Position.count
     render 'add_file'
   end
 
+  def delete_all
+    Position.delete_all
+    @p_count = 0
+    render 'add_file'
+  end
   private
   def upload_file_params
     params.require(:uploadpositionfile).permit(:filename)
