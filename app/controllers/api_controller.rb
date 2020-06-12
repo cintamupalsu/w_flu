@@ -34,7 +34,7 @@ class ApiController < ApplicationController
     user_email = params[:email]
     user = User.find_by(remember_digest: apikey)
     if user != nil && user.email == user_email
-      from_date = Time.zone.now.to_date - 3.days
+      from_date = Time.zone.now.to_date - 14.days
 
       heatPoints = Position.select("id, lat, lon, recdate, power").where("DATE(recdate)>='#{from_date.to_date}'")
       responseInfo = {status: 200, developerMessage: "OK"}
