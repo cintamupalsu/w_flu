@@ -38,7 +38,7 @@ class ApiController < ApplicationController
 
       heatPoints = Position.select("id, lat, lon, recdate, power").where("DATE(recdate)>='#{from_date.to_date}'")
       heatPoints.each do |heatPoint|
-        heatPoint.power = ((15/8) * (15.0-(Time.zone.now.to_date - heatPoint.recdate.to_date).to_f)).to_i
+        heatPoint.power = (0.533 * (15.0-(Time.zone.now.to_date - heatPoint.recdate.to_date).to_f)).to_i+1
       end
       responseInfo = {status: 200, developerMessage: "OK"}
       metadata = {responseInfo: responseInfo}
