@@ -37,6 +37,9 @@ class ApiController < ApplicationController
       from_date = Time.zone.now.to_date - 14.days
 
       heatPoints = Position.select("id, lat, lon, recdate, power").where("DATE(recdate)>='#{from_date.to_date}'")
+      heatPoints.each do |heatPoint|
+        heatPoint.power = ((15/8) * (15.0-(Time.zone.now.to_date - heatPoint.recdate.to_date).to_f)).to_i
+      end
       responseInfo = {status: 200, developerMessage: "OK"}
       metadata = {responseInfo: responseInfo}
       jsonString = {metadata: metadata, results: heatPoints}
