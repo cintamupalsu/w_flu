@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :reportsheets
   get 'api/login'
   get 'api/heatmap'
+  get 'api/idokeireport'
 
   root 'freeaccess_pages#home'
   get '/help', to: 'freeaccess_pages#help'

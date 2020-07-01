@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_08_011617) do
+ActiveRecord::Schema.define(version: 2020_06_30_064151) do
 
   create_table "positions", force: :cascade do |t|
     t.float "lat"
@@ -20,8 +20,18 @@ ActiveRecord::Schema.define(version: 2020_06_08_011617) do
     t.integer "power"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "reportsheet_id"
     t.index ["recdate", "user_id"], name: "index_positions_on_recdate_and_user_id"
+    t.index ["reportsheet_id"], name: "index_positions_on_reportsheet_id"
     t.index ["user_id"], name: "index_positions_on_user_id"
+  end
+
+  create_table "reportsheets", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "comment"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_reportsheets_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -35,5 +45,7 @@ ActiveRecord::Schema.define(version: 2020_06_08_011617) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "positions", "reportsheets"
   add_foreign_key "positions", "users"
+  add_foreign_key "reportsheets", "users"
 end

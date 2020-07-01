@@ -1,0 +1,27 @@
+<%= form_with(model: reportsheet, local: true) do |form| %>
+  <% if reportsheet.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(reportsheet.errors.count, "error") %> prohibited this reportsheet from being saved:</h2>
+
+      <ul>
+        <% reportsheet.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :comment %>
+    <%= form.text_field :comment %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

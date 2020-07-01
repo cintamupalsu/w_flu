@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Reportsheets</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Comment</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @reportsheets.each do |reportsheet| %>
+      <tr>
+        <td><%= reportsheet.user_id %></td>
+        <td><%= reportsheet.comment %></td>
+        <td><%= link_to 'Show', reportsheet %></td>
+        <td><%= link_to 'Edit', edit_reportsheet_path(reportsheet) %></td>
+        <td><%= link_to 'Destroy', reportsheet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Reportsheet', new_reportsheet_path %>
