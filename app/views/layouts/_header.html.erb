@@ -16,7 +16,7 @@
               アンケート<b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <li><%= link_to "新規アンケート","#" %></li>
+              <a><li><%= link_to "新規アンケート","#" %></li></a>
               <li><%= link_to "アンケート一覧","#" %></li>
             </ul>
           </li>
@@ -25,7 +25,9 @@
               マップ<b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <a class="nav-link" href="<%= add_positions_file_path %>">ファイル追加</a>
+              <a class="nav-link" href="<%= reportsheets_path %>">Report sheets</a>
+              <li class="dropdown-divider"></li>
+              <a class="nav-link" href="<%= add_positions_file_path %>">Positions</a>
             </ul>
           </li>
 
