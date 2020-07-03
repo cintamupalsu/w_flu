@@ -59,15 +59,61 @@ class ApiController < ApplicationController
   def idokeireport
     apikey = params[:apikey]
     user_email = params[:email]
+
+    # get Latitude and Longitude
+    lats = []
+    lons = []
+    timeStamps = []
+
     idostr = params[:idostr]
-    memostr = params[:memo]
-    user = User.find_by(remember_digest: apikey)
-    if user != nil && user.email == user_email
+    if idostr != nil
+      idokeistr = idostr.split(",")
+      counter = 0
+      idokeistr.each do |ik|
+        if counter%3 == 0
+          lats.push ik.to_f
+        elsif counter%3 == 1
+          lons.push ik.to_f
+        elsif counter%3 == 2
+          timeStamps.push Date.parse(ik)
+        end
+        counter += 1
+      end
+    end
+    # --
 
+    if lats.count !=0 && lats.count == lons.count
+      memostr = params[:memo]
+      user = User.find_by(remember_digest: apikey)
+      reportsheetid = params[:rsid]
+
+      if user != nil && user.email == user_email
+        if reportsheetid == nil
+          reportsheet = Reportsheet.create(user_id: user.id, comment: memostr)
+          (0..lats.count).each do |i|
+            position = Position.create(reportsheet_id: reportsheet.id, lat: lats[i], lon: lons[i], recdate: timeStamps[i], user_id: user.id)
+          end
+          responseInfo = {status: 201, developerMessage: "#{reportsheet.id}"}
+          metadata = {responseInfo: responseInfo}
+          jsonString = {metadata: metadata, results: []}
+        else
+          (0..lats.count).each do |i|
+            position = Position.create(reportsheet_id: reportsheetid.to_i, lat: lats[i], lon: lons[i], recdate: timeStamps[i], user_id: user.id)
+          end
+          responseInfo = {status: 200, developerMessage: "OK"}
+          metadata = {responseInfo: responseInfo}
+          jsonString = {metadata: metadata, results: []}
+        end
+        render json: jsonString.to_json
+      else
+        jsonMsg(501, "Authentication Failed", [])
+      end
     else
-
+      jsonMsg(502, "Data series unmatch", [])
     end
   end
+
+# http://localhost:3000/api/idokeireport?email=maulanamania@gmail.com&apikey=$2a$12$zP1fvP/lBZfvcC3dX9Y6oOyjKldilF9WqWGqu6UfmL2O49H/HdMKq&idostr=1.2343,2.3434,2020/6/30,1.2346,3.2434,2020/7/1&memo=testing
 
   private
 
@@ -81,6 +127,8 @@ class ApiController < ApplicationController
     jsonString = {metadata: metadata, results: result}
     render json: jsonString.to_json
   end
+
+
 
 
 end
