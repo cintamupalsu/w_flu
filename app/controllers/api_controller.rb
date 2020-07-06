@@ -59,6 +59,8 @@ class ApiController < ApplicationController
   def idokeireport
     apikey = params[:apikey]
     user_email = params[:email]
+    reportsheetid = params[:rsid]
+    memostr = params[:memo]
 
     # get Latitude and Longitude
     lats = []
@@ -85,20 +87,28 @@ class ApiController < ApplicationController
     if lats.count !=0 && lats.count == lons.count
       memostr = params[:memo]
       user = User.find_by(remember_digest: apikey)
-      reportsheetid = params[:rsid]
-
+      position = Position.where("user_id=?", user.id).last
       if user != nil && user.email == user_email
-        if reportsheetid == nil
+        if reportsheetid.to_i == 0
           reportsheet = Reportsheet.create(user_id: user.id, comment: memostr)
-          (0..lats.count).each do |i|
-            position = Position.create(reportsheet_id: reportsheet.id, lat: lats[i], lon: lons[i], recdate: timeStamps[i], user_id: user.id)
+          position = Position.where("user_id=?", user.id).last
+          (0..lats.count-1).each do |i|
+            if position != nil
+              if timeStamps[i] > position.recdate
+                Position.create(reportsheet_id: reportsheet.id, lat: lats[i], lon: lons[i], recdate: timeStamps[i], user_id: user.id)
+              end
+            else
+              Position.create(reportsheet_id: reportsheet.id, lat: lats[i], lon: lons[i], recdate: timeStamps[i], user_id: user.id)
+            end
           end
           responseInfo = {status: 201, developerMessage: "#{reportsheet.id}"}
           metadata = {responseInfo: responseInfo}
           jsonString = {metadata: metadata, results: []}
         else
-          (0..lats.count).each do |i|
-            position = Position.create(reportsheet_id: reportsheetid.to_i, lat: lats[i], lon: lons[i], recdate: timeStamps[i], user_id: user.id)
+          reportsheet = Reportsheet.find(reportsheetid.to_i)
+          if reportsheet != nil
+            reportsheet.delay.add_geoposition(lats, lons, timeStamps, user.id, reportsheetid.to_i)
+            #add_geoposition(lats, lons, timeStamps, user.id, reportsheetid.to_i)
           end
           responseInfo = {status: 200, developerMessage: "OK"}
           metadata = {responseInfo: responseInfo}
@@ -127,8 +137,6 @@ class ApiController < ApplicationController
     jsonString = {metadata: metadata, results: result}
     render json: jsonString.to_json
   end
-
-
 
 
 end
