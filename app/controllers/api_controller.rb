@@ -1,4 +1,5 @@
 class ApiController < ApplicationController
+  skip_before_action :verify_authenticity_token
 
   def login
     user_id = params[:id].to_i
