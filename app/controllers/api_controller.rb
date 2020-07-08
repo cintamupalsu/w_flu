@@ -123,6 +123,24 @@ class ApiController < ApplicationController
     end
   end
 
+  def postposition
+    email = params[:email]
+    apikey = params[:apikey]
+    positionString = params[:positions]
+    user = User.find_by(remember_digest: apikey)
+    if user != nil && user.email == email
+      Reportsheet.create(user_id: user.id, comment: positionString)
+      responseInfo = {status: 200, developerMessage: "OK"}
+      metadata = {responseInfo: responseInfo}
+      jsonString = {metadata: metadata, results: []}
+      render json: jsonString.to_json
+    else
+      responseInfo = {status: 500, developerMessage: "Failed"}
+      metadata = {responseInfo: responseInfo}
+      jsonString = {metadata: metadata, results: []}
+      render json: jsonString.to_json
+    end
+  end
 # http://localhost:3000/api/idokeireport?email=maulanamania@gmail.com&apikey=$2a$12$zP1fvP/lBZfvcC3dX9Y6oOyjKldilF9WqWGqu6UfmL2O49H/HdMKq&idostr=1.2343,2.3434,2020/6/30,1.2346,3.2434,2020/7/1&memo=testing
 
   private
