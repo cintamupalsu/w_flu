@@ -128,9 +128,30 @@ class ApiController < ApplicationController
     email = params[:email]
     apikey = params[:apikey]
     positionString = params[:positions]
+    comment = params[:comment]
     user = User.find_by(remember_digest: apikey)
+
+    lats = []
+    lons = []
+    timeStamps = []
+    if positionString != nil
+      idokeistr = positionString.split(",")
+      counter = 0
+      idokeistr.each do |ik|
+        if counter%3 == 0
+          lats.push ik.to_f
+        elsif counter%3 == 1
+          lons.push ik.to_f
+        elsif counter%3 == 2
+          timeStamps.push Date.parse(ik)
+        end
+        counter += 1
+      end
+    end
+
     if user != nil && user.email == email
-      Reportsheet.create(user_id: user.id, comment: positionString)
+      reportsheet = Reportsheet.create(user_id: user.id, comment: comment)
+      reportsheet.delay.add_geoposition(lats, lons, timeStamps, user.id, reportsheetid.to_i)
       responseInfo = {status: 200, developerMessage: "OK"}
       metadata = {responseInfo: responseInfo}
       jsonString = {metadata: metadata, results: []}
