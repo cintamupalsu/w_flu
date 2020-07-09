@@ -152,12 +152,12 @@ class ApiController < ApplicationController
     if user != nil && user.email == email
       reportsheet = Reportsheet.create(user_id: user.id, comment: comment)
       reportsheet.delay.add_geoposition(lats, lons, timeStamps, user.id, reportsheet.id)
-      responseInfo = {status: 200, developerMessage: "OK"}
+      responseInfo = {status: 200, developerMessage: "緯度経度を送りました。"}
       metadata = {responseInfo: responseInfo}
       jsonString = {metadata: metadata, results: []}
       render json: jsonString.to_json
     else
-      responseInfo = {status: 500, developerMessage: "Failed"}
+      responseInfo = {status: 500, developerMessage: "承認することができなかったです。"}
       metadata = {responseInfo: responseInfo}
       jsonString = {metadata: metadata, results: []}
       render json: jsonString.to_json
