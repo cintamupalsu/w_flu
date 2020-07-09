@@ -151,7 +151,7 @@ class ApiController < ApplicationController
 
     if user != nil && user.email == email
       reportsheet = Reportsheet.create(user_id: user.id, comment: comment)
-      reportsheet.delay.add_geoposition(lats, lons, timeStamps, user.id, reportsheetid.to_i)
+      reportsheet.delay.add_geoposition(lats, lons, timeStamps, user.id, reportsheet.id)
       responseInfo = {status: 200, developerMessage: "OK"}
       metadata = {responseInfo: responseInfo}
       jsonString = {metadata: metadata, results: []}
