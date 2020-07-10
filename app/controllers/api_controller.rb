@@ -129,7 +129,7 @@ class ApiController < ApplicationController
     apikey = params[:apikey]
     reportsheetid = params[:id]
     user = User.find_by(remember_digest: apikey)
-    if user.emai == email
+    if user.email == email
       reportsheet = Reportsheet.find(reportsheetid.to_i)
       jsonMsg(200,reporsheet.comment,[])
     else
