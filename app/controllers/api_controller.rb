@@ -56,7 +56,7 @@ class ApiController < ApplicationController
       ##jsonMsg(501, "Authentication error")
     end
   end
-
+=begin
   def idokeireport
     apikey = params[:apikey]
     user_email = params[:email]
@@ -121,6 +121,19 @@ class ApiController < ApplicationController
       end
     else
       jsonMsg(502, "Data series unmatch", [])
+    end
+  end
+=end
+  def getcomment
+    email = params[:email]
+    apikey = params[:apikey]
+    reportsheetid = params[:id]
+    user = User.find_by(remember_digest: apikey)
+    if user.emai == email
+      reportsheet = Reportsheet.find(reportsheetid.to_i)
+      jsonMsg(200,reporsheet.comment,[])
+    else
+      jsonMsg(501,"Authentication Failed", [])
     end
   end
 

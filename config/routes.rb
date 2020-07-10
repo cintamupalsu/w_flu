@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'api/heatmap'
   get 'api/idokeireport'
   post 'api/postposition'
+  get 'api/getcomment'
 
   root 'freeaccess_pages#home'
   get '/help', to: 'freeaccess_pages#help'
