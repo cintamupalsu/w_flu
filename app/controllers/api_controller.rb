@@ -157,7 +157,7 @@ class ApiController < ApplicationController
       jsonString = {metadata: metadata, results: []}
       render json: jsonString.to_json
     else
-      responseInfo = {status: 500, developerMessage: "承認することができなかったです。"}
+      responseInfo = {status: 500, developerMessage: "承認することができなかったです。アプリを再起動して下さい。"}
       metadata = {responseInfo: responseInfo}
       jsonString = {metadata: metadata, results: []}
       render json: jsonString.to_json
