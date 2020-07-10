@@ -36,7 +36,7 @@ class ApiController < ApplicationController
     user = User.find_by(remember_digest: apikey)
     if user != nil && user.email == user_email
       from_date = Time.zone.now.to_date - 14.days
-      heatPoints = Position.select("id, lat, lon, recdate, power").where("DATE(recdate)>='#{from_date.to_date}'")
+      heatPoints = Position.select("id, lat, lon, recdate, power, reportsheet_id").where("DATE(recdate)>='#{from_date.to_date}'")
       heatPoints.each do |heatPoint|
         heatPoint.power = (0.533 * (15.0-(Time.zone.now.to_date - heatPoint.recdate.to_date).to_f)).to_i+1
       end
