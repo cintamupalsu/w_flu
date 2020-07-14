@@ -131,9 +131,9 @@ class ApiController < ApplicationController
     user = User.find_by(remember_digest: apikey)
     if user.email == email
       reportsheet = Reportsheet.find(reportsheetid.to_i)
-      jsonMsg(200,reportsheet.comment,[])
+      jsonMsg(200, reportsheet.comment, [])
     else
-      jsonMsg(501,"Authentication Failed", [])
+      jsonMsg(501, "Authentication Failed", [])
     end
   end
 
