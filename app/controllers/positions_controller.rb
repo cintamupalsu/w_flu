@@ -34,6 +34,11 @@ class PositionsController < ApplicationController
     @p_count = 0
     render 'add_file'
   end
+
+  def dmap
+    render 'dmap'
+  end
+
   private
   def upload_file_params
     params.require(:uploadpositionfile).permit(:filename)

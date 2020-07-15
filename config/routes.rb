@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   get '/add_positions_file', to: 'positions#add_file'
+  get '/dmap', to: 'positions#dmap'
   post '/upload_position_file', to: 'positions#upload_file'
   get '/delete_all_positions', to: 'positions#delete_all'
 

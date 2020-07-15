@@ -1,57 +1,40 @@
+
 <div class="col-md-12">
   <div class="row">
     <p id="notice"><%= notice %></p>
   </div>
-  <div class="row">
-    <div class="col-md-7">
+  <div class="row text-center">
+    <div class="col-md-12">
       <h1>Reportsheets</h1>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-2">
-      ユーザー
+  <div class="row text-center bg-info rounded">
+    <div class="col-1">
+      ユーザー ID
     </div>
-    <div class="col-7">
+    <div class="col-8">
       コメント
     </div>
     <div class="col-3">
       操作
     </div>
   </div>
+  <% counter=0 %>
   <% @reportsheets.each do |reportsheet| %>
-    <div class="row">
-        <div class="col-2"><%= reportsheet.user_id %></div>
-        <div class="col-7"><%= reportsheet.comment %></div>
-        <div class="col-1"><%= link_to '表示', reportsheet %></div>
-        <div class="col-1"><%= link_to '編集', edit_reportsheet_path(reportsheet) %></div>
-        <div class="col-1"><%= link_to '削除', reportsheet, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+    <% if counter%2 == 0 %>
+      <div class="row border-bottom border-warning">
+    <% else %>
+      <div class="row border-bottom border-info">
+    <% end %>
+      <div class="col-1 text-center"><%= reportsheet.user_id %></div>
+      <div class="col-8"><%= reportsheet.comment %></div>
+      <div class="col-1 pl-0"><%= link_to '表示', reportsheet, class: "btn btn-outline-primary btn-block btn-sm", role: "button" %></div>
+      <div class="col-1 pl-0"><%= link_to '編集', edit_reportsheet_path(reportsheet), class: "btn btn-outline-secondary btn-block btn-sm", role: "button" %></div>
+      <div class="col-1 pl-0"><%= link_to '削除', reportsheet, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-block btn-sm", role: "button" %></div>
     </div>
+    <% counter += 1 %>
   <% end %>
-  
-  <table>
-    <thead>
-      <tr>
-        <th>User</th>
-        <th>Comment</th>
-        <th colspan="3"></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @reportsheets.each do |reportsheet| %>
-        <tr>
-          <td><%= reportsheet.user_id %></td>
-          <td><%= reportsheet.comment %></td>
-          <td><%= link_to 'Show', reportsheet %></td>
-          <td><%= link_to 'Edit', edit_reportsheet_path(reportsheet) %></td>
-          <td><%= link_to 'Destroy', reportsheet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-  <br>
-
-  <%= link_to 'New Reportsheet', new_reportsheet_path %>
+  <br/>
+  <%= link_to 'New Reportsheet', new_reportsheet_path, class: "btn btn-outline-primary", role: "button" %>
 </div>
