@@ -20,7 +20,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 To get started with the app, clone the repo and then install the needed gems:
 ```
-$ bundle install --without production ```
+$ bundle install --without production
+```
 Next, migrate the database:
 ```
 $ rails db:migrate
