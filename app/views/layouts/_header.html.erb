@@ -41,7 +41,9 @@
               <a class="nav-link" href="<%=edit_user_path(current_user)%>">設定</a>
               <li class="dropdown-divider"></li>
               <li>
-                <a class="nav-link" href="<%=logout_path%>">ログアウト</a>
+                <a class="nav-link">
+                  <%= link_to "ログアウト", logout_path, method: :delete %>
+                </a>
               </li>
             </ul>
           </li>
