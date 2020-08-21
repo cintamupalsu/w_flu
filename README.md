@@ -6,6 +6,8 @@ Our purpose is to collects as much as accurate data from the community, starting
 
 The applications are integrated, which provides no limit to be used, even for the overseas market. In the beginning, we would like to introduce to IOS user and delivers the benefits of this application. We hope we may see the result by analyzing the collected information from this application and compare it to the social condition. We are also looking for feedback during this trial to make some improvement for better service in the future.
 
+This project has been submitted to IBM Call for Code 2020.
+
 ## License
 
 Copyright 2020 SBS Information System (SBS情報システム)
