@@ -1,0 +1,71 @@
+<div class="border-right border-bottom border-left">
+  <br/>
+  <div class="row">
+    <div class="col-2">
+    </div>
+    <div class="col-1 text-center">
+      <%= link_to "去年", calendar_prev_years_path(:selDate => @fday - 1.years), class: "btn btn-primary btn-sm", role: "button" %>
+    </div>
+    <div class="col-1 text-center">
+      <%= link_to "先月", calendar_prev_month_path(:selDate => @fday - 1.months), class: "btn btn-info btn-sm", role: "button" %>
+    </div>
+    <div class="col-3 text-center">
+      <h1><%=@year%>年<%=@month%>月</h1>
+    </div>
+    <div class="col-1 text-center">
+      <%= link_to "来月", calendar_next_month_path(:selDate => @fday + 1.months), class: "btn btn-info btn-sm", role: "button" %>
+    </div>
+    <div class="col-1 text-center">
+      <%= link_to "来年", calendar_next_years_path(:selDate => @fday + 1.years), class: "btn btn-primary btn-sm", role: "botton" %>
+    </div>
+  </div>
+  <div class="row ">
+    <div class="col-2">
+    </div>
+    <div class="col-1 border text-center text-danger">
+      日曜日
+    </div>
+    <div class="col-1 border text-center">
+      月曜日
+    </div>
+    <div class="col-1 border text-center">
+      火曜日
+    </div>
+    <div class="col-1 border text-center">
+      水曜日
+    </div>
+    <div class="col-1 border text-center">
+      木曜日
+    </div>
+    <div class="col-1 border text-center">
+      金曜日
+    </div>
+    <div class="col-1 border text-center">
+      土曜日
+    </div>
+    <div class="col-3">
+    </div>
+  </div>
+  <% counter = 0 %>
+  <% for i in 0..5 do %>
+    <div class="row">
+      <div class="col-2">
+      </div>
+      <% for j in 0..6 do %>
+        <% if j == 0 %>
+          <div class="col-1 border text-danger">
+        <% else %>
+          <div class="col-1 border">
+        <% end %>
+          <%= @box[counter] %>
+          <% counter += 1 %>
+        </div>
+      <% end %>
+      <div class="col-3">
+      </div>
+    </div>
+  <% end %>
+
+
+  <br/>
+</div>

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get 'calendars/index'
   resources :reportsheets
   get 'api/login'
   get 'api/heatmap'
@@ -21,6 +22,12 @@ Rails.application.routes.draw do
   get '/dmap', to: 'positions#dmap'
   post '/upload_position_file', to: 'positions#upload_file'
   get '/delete_all_positions', to: 'positions#delete_all'
+
+  get 'calendars_view', to: 'calendars#index'
+  get 'calendar_prev_month', to: 'calendars#index'
+  get 'calendar_prev_years', to: 'calendars#index'
+  get 'calendar_next_month', to: 'calendars#index'
+  get 'calendar_next_years', to: 'calendars#index'
 
   resources :users
 end

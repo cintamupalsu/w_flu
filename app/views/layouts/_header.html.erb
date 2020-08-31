@@ -20,14 +20,16 @@
               <li><%= link_to "アンケート一覧","#" %></li>
             </ul>
           </li>
+
           <li class="dropdown">
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-              マップ<b class="caret"></b>
+              ツール<b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <a class="nav-link" href="<%= reportsheets_path %>">Report sheets</a>
+              <a class="nav-link" href="<%= reportsheets_path %>">報告書</a>
+              <a class="nav-link" href="<%= dmap_path %>">行動</a>
               <li class="dropdown-divider"></li>
-              <a class="nav-link" href="<%= dmap_path %>">Positions</a>
+              <a class="nav-link" href="<%= calendars_view_path %>">日記</a>
             </ul>
           </li>
 

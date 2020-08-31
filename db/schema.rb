@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_03_013926) do
+ActiveRecord::Schema.define(version: 2020_08_21_042955) do
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
@@ -25,6 +25,15 @@ ActiveRecord::Schema.define(version: 2020_07_03_013926) do
     t.datetime "created_at", precision: 6
     t.datetime "updated_at", precision: 6
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+  end
+
+  create_table "diaries", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "note01"
+    t.date "day"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_diaries_on_user_id"
   end
 
   create_table "positions", force: :cascade do |t|
@@ -60,6 +69,7 @@ ActiveRecord::Schema.define(version: 2020_07_03_013926) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "diaries", "users"
   add_foreign_key "positions", "reportsheets"
   add_foreign_key "positions", "users"
   add_foreign_key "reportsheets", "users"
