@@ -1,0 +1,5 @@
+applications:
+- name: hazardmap
+  command: node hazardmap.js
+  random-route: true
+  memory: 256MB
