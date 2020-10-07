@@ -30,4 +30,5 @@ Rails.application.routes.draw do
   get 'calendar_next_years', to: 'calendars#index'
 
   resources :users
+  resources :microposts, only: [:create, :destroy]
 end

@@ -11,6 +11,7 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   has_many :potitions, dependent: :destroy
   has_many :diaries, dependent: :destroy
+  has_many :microposts, dependent: :destroy
   # Returns the hash digest of the given string.
   # def User.digest(string)
   #  cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
@@ -49,4 +50,10 @@ class User < ApplicationRecord
     update_attribute(:remember_digest, nil)
   end
 
+  #Defines a proto-feed.
+  #See "following users" for the full implementation.
+  def feed
+    Micropost.where("user_id = ?", id)
+  end
+  
 end
