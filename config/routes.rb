@@ -29,6 +29,12 @@ Rails.application.routes.draw do
   get 'calendar_next_month', to: 'calendars#index'
   get 'calendar_next_years', to: 'calendars#index'
 
-  resources :users
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
+
   resources :microposts, only: [:create, :destroy]
+  resources :relationships, only: [:create, :destroy]
 end
