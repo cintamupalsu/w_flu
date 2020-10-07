@@ -8,9 +8,9 @@
         <li class="nav-item"><%= link_to "ホーム", root_path, class: "nav-link" %></li>
         <li class="nav-item"><%= link_to "ヘルプ", help_path, class: "nav-link" %></li>
         <% if logged_in? %>
-          <% if current_user.admin? %>
+          <% #if current_user.admin? %>
             <li class="nav-item"><%= link_to "ユーザー", users_path, class: "nav-link" %></li>
-          <% end %>
+          <% #end %>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
               アンケート<b class="caret"></b>
