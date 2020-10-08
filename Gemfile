@@ -7,8 +7,6 @@ ruby '2.6.3'
 gem 'rails', '~> 6.0.0'
 gem 'bcrypt'
 gem 'faker'
-gem 'will_paginate'
-gem 'bootstrap-will_paginate'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3', '~> 1.4'
 # Use Puma as the app server
@@ -33,8 +31,12 @@ gem 'jbuilder', '~> 2.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'bootstrap' # dont forget to set config/webpack/environment
+gem 'will_paginate' 
+#gem 'bootstrap-will_paginate'
+gem 'will_paginate-bootstrap4'
 gem 'jquery-rails'
 gem 'delayed_job_active_record'
+gem 'ibm_watson'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
