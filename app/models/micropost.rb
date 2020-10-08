@@ -16,15 +16,29 @@ class Micropost < ApplicationRecord
     )
     nlu.service_url = "https://gateway.watsonplatform.net/natural-language-understanding/api"
 
-    response = nlu.analyze(
-        text: self.content,
-        features: {emotion: {document: true}}
-    )
-    emotion = response.result["emotion"]["document"]["emotion"]
-    self.sadness = emotion["sadness"].to_f
-    self.joy = emotion["joy"].to_f
-    self.fear = emotion["fear"].to_f
-    self.disgust = emotion["disgust"].to_f
-    self.anger = emotion["anger"].to_f
+    begin
+      response = nlu.analyze(
+          text: self.content,
+          features: {emotion: {document: true}}
+      )
+
+      emotion = response.result["emotion"]["document"]["emotion"]
+      self.sadness = emotion["sadness"].to_f
+      self.joy = emotion["joy"].to_f
+      self.fear = emotion["fear"].to_f
+      self.disgust = emotion["disgust"].to_f
+      self.anger = emotion["anger"].to_f
+      return "ok"
+    rescue IBMWatson::ApiException => ex
+      return ex.info["language"]
+    end
+  end
+
+  def init_emotions_default
+    self.sadness = 0.0
+    self.joy = 0.0
+    self.fear = 0.0
+    self.disgust = 0.0
+    self.anger = 0.0
   end
 end

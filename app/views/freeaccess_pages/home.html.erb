@@ -12,7 +12,25 @@
       </section>
     </aside>
     <div class="col-md-9">
-      <h3>日記一覧</h3>
+      
+      <div class="row">
+        <div class="col-3">
+          <h3>日記一覧 </h3>
+        </div>
+        <div class="col-5 text-right">
+          <%= will_paginate @feed_items, params: {controller: :freeaccess_pages, action: :home} %>
+        </div>
+        <div class="col-4">
+          <div class="row">
+            <div class="col-2"></div>
+            <div class="col-2">悲</div>
+            <div class="col-2">喜</div>
+            <div class="col-2">恐</div>
+            <div class="col-2">嫌</div>
+            <div class="col-2">怒</div>
+          </div>
+        </div>
+      </div>
       <%= render 'shared/feed'%>
     </div>
   </div>

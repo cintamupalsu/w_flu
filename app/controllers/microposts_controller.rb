@@ -4,7 +4,15 @@ class MicropostsController < ApplicationController
 
     def create
         @micropost = current_user.microposts.build(micropost_params)
-        @micropost.init_emotions
+        
+        see_emotion = @micropost.init_emotions
+        if see_emotion != "ok"
+            if @micropost.init_emotions == "ja"
+                #Translate Japanese to English
+            else 
+                @micropost.init_emotions_default
+            end
+        end
         
         if @micropost.save
             flash[:success] = "日記を書きました"
