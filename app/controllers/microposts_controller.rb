@@ -16,6 +16,7 @@ class MicropostsController < ApplicationController
                 @micropost.content = translation.text.inspect.gsub("&#39;","'")
                 @micropost.init_emotions
                 @micropost.content = originText
+                
             else 
                 @micropost.init_emotions_default
             end
