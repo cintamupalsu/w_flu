@@ -37,6 +37,7 @@ gem 'will_paginate-bootstrap4'
 gem 'jquery-rails'
 gem 'delayed_job_active_record'
 gem 'ibm_watson'
+gem 'google-cloud-translate'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

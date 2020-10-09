@@ -9,6 +9,13 @@ class MicropostsController < ApplicationController
         if see_emotion != "ok"
             if @micropost.init_emotions == "ja"
                 #Translate Japanese to English
+                project_id = "sbs-projects"
+                translate = Google::Cloud::Translate.translation_v2_service project_id: project_id
+                translation = translate.translate @micropost.content, to: 'en'
+                originText = @micropost.content
+                @micropost.content = translation.text.inspect.gsub("&#39;","'")
+                @micropost.init_emotions
+                @micropost.content = originText
             else 
                 @micropost.init_emotions_default
             end
