@@ -143,9 +143,11 @@ class ApiController < ApplicationController
         detail["microposts"]=user.microposts.select("id, content, created_at, sadness, joy, fear, disgust, anger").first(5)
         master[counter] = detail
         counter+=1
-      end
+      end 
       responseInfo ={status: 200, developerMessage: "OK"}
-      jsonMsg(200, responseInfo, master)
+      metadata = {responseInfo: responseInfo}
+      jsonString = {metadata: metadata, results: master}
+      render json: jsonString.to_json
     else
       jsonMsg(501, "Authentication Failed", [])
     end
