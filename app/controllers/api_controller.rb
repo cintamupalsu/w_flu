@@ -132,7 +132,7 @@ class ApiController < ApplicationController
     user = User.find_by(remember_digest: apikey)
     if user!= nil && user.email == email
       following_ids = "SELECT follower_id FROM relationships WHERE followed_id = :user_id"  
-      users = User.select("id, name").where("id IN (#{following_ids}) OR id = :user_id", user_id: user.id)
+      users = User.select("id, name").where("id = :user_id OR id IN (#{following_ids})", user_id: user.id)
       #users_master = User.where("id IN (#{following_ids}) OR id = :user_id", user_id: user.id)
       master = []
       counter =0
