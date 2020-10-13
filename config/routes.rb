@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'api/idokeireport'
   post 'api/postposition'
   get 'api/getcomment'
+  get 'api/get_microposts'
 
   root 'freeaccess_pages#home'
   get '/help', to: 'freeaccess_pages#help'
