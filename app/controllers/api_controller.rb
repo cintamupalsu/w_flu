@@ -127,20 +127,26 @@ class ApiController < ApplicationController
   end
 
   def get_microposts
+    # params check
     email = getmicroposts_params['email']
     apikey = getmicroposts_params['apikey']
+    if getmicroposts_params['date'] == nil
+      selected_date = Time.zone.now.to_date
+    else
+      selected_date = Date.parse(getmicroposts_params['date'])
+    end
+    
     user = User.find_by(remember_digest: apikey)
     if user!= nil && user.email == email
       following_ids = "SELECT follower_id FROM relationships WHERE followed_id = :user_id"  
       users = User.select("id, name").where("id = :user_id OR id IN (#{following_ids})", user_id: user.id)
-      #users_master = User.where("id IN (#{following_ids}) OR id = :user_id", user_id: user.id)
       master = []
       counter =0
       users.each do |user|
         detail ={}
         detail["id"] = user.id
         detail["name"]=user.name
-        detail["microposts"]=user.microposts.select("id, content, created_at, sadness, joy, fear, disgust, anger").first(5)
+        detail["microposts"]=user.microposts.select("id, content, created_at, sadness, joy, fear, disgust, anger").where("DATE(created_at)>='#{selected_date.beginning_of_month}' AND DATE(created_at)<='#{selected_date.end_of_month}'")
         master[counter] = detail
         counter+=1
       end 
@@ -152,8 +158,6 @@ class ApiController < ApplicationController
       jsonMsg(501, "Authentication Failed", [])
     end
   end
-
-# http://localhost:3000/api/idokeireport?email=maulanamania@gmail.com&apikey=$2a$12$zP1fvP/lBZfvcC3dX9Y6oOyjKldilF9WqWGqu6UfmL2O49H/HdMKq&idostr=1.2343,2.3434,2020/6/30,1.2346,3.2434,2020/7/1&memo=testing
 
   private
 
@@ -170,7 +174,7 @@ class ApiController < ApplicationController
   end
 
   def getmicroposts_params
-    params.permit(:apikey, :email)
+    params.permit(:apikey, :email, :date)
   end
 
   def postposition_params
