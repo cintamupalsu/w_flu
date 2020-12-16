@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   post 'api/postposition'
   get 'api/getcomment'
   get 'api/get_microposts'
+  get 'api/postmicropost'
 
   root 'freeaccess_pages#home'
   get '/help', to: 'freeaccess_pages#help'

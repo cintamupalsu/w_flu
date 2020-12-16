@@ -65,9 +65,7 @@ class ApiController < ApplicationController
   end
 
   def getcomment
-    #email = params[:email]
-    #apikey = params[:apikey]
-    #reportsheetid = params[:id]
+   
     email = getcomment_params['email']
     apikey = getcomment_params['apikey']
     reportsheetid =getcomment_params['id']
@@ -82,10 +80,7 @@ class ApiController < ApplicationController
   end
 
   def postposition
-    #email = params[:email]
-    #apikey = params[:apikey]
-    #positionString = params[:positions]
-    #comment = params[:comment]
+   
     email = postposition_params['email']
     apikey = postposition_params['apikey']
     positionString = postposition_params['positions']
@@ -159,6 +154,54 @@ class ApiController < ApplicationController
     end
   end
 
+  def postmicropost
+    #params check
+    email = postmicropost_params['email']
+    apikey = postmicropost_params['apikey']
+    comment = postmicropost_params['comment']
+    datepost = postmicropost_params['datepost']
+    date = Date.parse(datepost)
+    user = User.find_by(remember_digest: apikey)
+    if user != nil && user.email == email
+      @micropost = user.microposts.build(content: comment, created_at: datepost, updated_at: datepost)
+      see_emotion = @micropost.init_emotions
+      if see_emotion != "ok"
+        if @micropost.init_emotions == "ja"
+            #Translate Japanese to English
+            project_id = "sbs-projects"
+            translate = Google::Cloud::Translate.translation_v2_service project_id: project_id
+            translation = translate.translate @micropost.content, to: 'en'
+            originText = @micropost.content
+            @micropost.content = translation.text.inspect.gsub("&#39;","'")
+            @micropost.init_emotions
+            @micropost.content = originText
+        else 
+            @micropost.init_emotions_default
+        end
+        if @micropost.save
+
+          master = []
+          counter = 0
+          detail = {}
+          detail["id"] = user.id
+          detail["name"] = user.name 
+          detail["microposts"] = user.microposts.select("id, content, created_at, sadness, joy, fear, disgust, anger").where("DATE(created_at)>='#{date.beginning_of_month}' AND DATE(created_at)<='#{date.end_of_month}'")
+          master[counter] = detail
+        
+          responseInfo ={status: 200, developerMessage: "OK"}
+          metadata = {responseInfo: responseInfo}
+          jsonString = {metadata: metadata, results: master}
+          render json: jsonString.to_json
+
+        else
+          jsonMsg(502, "Authentication Failed", [])
+        end
+      else
+        jsonMsg(501, "Authentication Failed", [])
+      end
+    end
+  end
+
   private
 
   def login_params
@@ -179,6 +222,10 @@ class ApiController < ApplicationController
 
   def postposition_params
     params.permit(:email, :apikey, :positions, :comment)
+  end
+
+  def postmicropost_params
+    params.permit(:email, :apikey, :comment, :datepost)
   end
 
   def jsonMsg(errNum, errMessage, result)
